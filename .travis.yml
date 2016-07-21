@@ -1,5 +1,6 @@
 # Travis CI build for cpdisplay
 language: cpp
+compiler: gcc
 sudo: required
 dist: trusty
 # Build for Linux and OS X.
@@ -13,12 +14,13 @@ branches:
 # Based on opencor/opencor Travis config.
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         sudo add-apt-repository -y ppa:beineri/opt-qt561-trusty
+         sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+      && sudo add-apt-repository -y ppa:beineri/opt-qt561-trusty
       && sudo apt-get -qq update
-      && sudo apt-get -qq install gcc-4.9 g++-4.9
+      && sudo apt-get -qq install gcc-6 g++-6
       && sudo apt-get -qq install qt56base qt56svg qt56webengine
-      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 50
-      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
+      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 50
+      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 50
      ;
    else
          brew update
