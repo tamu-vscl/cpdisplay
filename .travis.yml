@@ -27,7 +27,7 @@ install:
       && sudo apt-get -qq update
       && sudo apt-get -qq install gcc-6 g++-6
       && sudo apt-get -qq install qt56base qt56svg qt56webengine
-      && sudo apt-get -qq mesa-common-dev
+      && sudo apt-get -qq install mesa-common-dev
       && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 50
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 50
      ;
