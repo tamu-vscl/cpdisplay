@@ -6,7 +6,8 @@ dist: trusty
 # Build for Linux and OS X.
 os:
   - linux
-  - osx
+# Ignore OS X for now; getting Qt5 working with Homebrew is too much of a pain.
+#  - osx
 env:
   global:
     # Coverity scan token.
