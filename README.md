@@ -8,10 +8,12 @@ CPDisplay
   <img alt="Coverity Scan Build Status"
        src="https://img.shields.io/coverity/scan/8942.svg"/>
 </a>
-<img alt="GitHub Release" 
-    src="https://img.shields.io/github/release/tamu-vscl/cpdisplay.svg"/>
+<a href="https://github.com/tamu-vscl/cpdisplay/releases">
+  <img alt="GitHub Release" 
+       src="https://img.shields.io/github/release/tamu-vscl/cpdisplay.svg"/>
+</a>
 
-Cockpit Head Down Display for the Vehicle Systems and Controls Lab at Texas A&M University.
+Cockpit Head Down Display for the Vehicle Systems & Controls Lab at Texas A&M University.
 
 This display is designed to work with X-Plane 10, and provides many panels.  The display itself is reconfigurable with a series of INI files, allowing users to modify the size and arrangement of panels to suite their needs and display resolutions.
 
