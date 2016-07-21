@@ -7,10 +7,18 @@ dist: trusty
 os:
   - linux
   - osx
+env:
+  global:
+    # Coverity scan token.
+    - secure: "nG3jbVXUhXMtFtfnLVGqC8ysJOSZ95/dQWCwMhtWN9y3/svbinb7/YXMFqlilkWOsV83TCHlOGF69VkyWoYjzy9SNuIjkWYqfyd0AlTPQsTThm9HqU3g0nZDWpRWynNf40eFbGUIadWRndu8GwCHK9BrlyhFKCgljJwLIjJgiQaTWCZJv+0gstoRn5vzMCcmhZuzwlB5i/ifwxNpKlzljDW4IP8955CjunJ7qXH18ilKaX5jiWN13/0RCXXTepcsFW9OehkuRipzWbqQHoPxAXPxFRGBtzQNgH7GAYeXG4ItfHNP4/i9375iYi10QUg1fZ8OQruyFSG17jPxV6kmmbGxczfWuQA5YQ1z8qeJXWSGZhfKhjgKrDXNk5YIskLys4D3n/SeSGgAXkLsfZpgFsf//LQiQDmRv+gqqkfJtCGI+acWYwgLquSB/eR/VD5LlNPAvG0psrPUYoSzaJikrqJH6mHLYSpGHaXuWwvAHN1qMepafBoMw6jdhUgyAGtaPccv4pfnZgtIDREWNA2JyILYch5FsSA21pcAsn4jiirFku+Oh+oFsrrehqk8+E1fETMbnLcg2SM4YkpdPx4CaKaQpPryeLnnRj9b+QI5GyoPxAjInp6ZRDeH/lCU7Rqp7B9WEq7P6D8m4nCIARPtJ1hsmKAFrQJqfVpLSh+6a7A="
+    # Set to true for CMake to use for Linux prefix stuff.
+    - TRAVISCI=true
+
 # For now, build only the master branch.
 branches:
   - master
-# Install Qt5.6
+
+# Install Qt5.6 and gcc6
 # Based on opencor/opencor Travis config.
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
@@ -19,6 +27,7 @@ install:
       && sudo apt-get -qq update
       && sudo apt-get -qq install gcc-6 g++-6
       && sudo apt-get -qq install qt56base qt56svg qt56webengine
+      && sudo apt-get -qq mesa-common-dev
       && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 50
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 50
      ;
@@ -29,21 +38,29 @@ install:
       && chmod -R 755 /usr/local/opt/qt5/*
      ;
    fi
+
 # Build script
 script:
   -    mkdir build
     && cd build
-    && if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
-          cmake -DCMAKE_PREFIX_PATH=/opt/qt56/lib/cmake ..
-          ;
-       else
-          cmake DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake ..
-          ;
-       fi
+    && cmake ..
     && make -j4
+
 # Build notifications.
 notifications:
   email:
     secure: Mt+vyHXw4xkVaYN6DEuFWpOLNI9uiLWpVfCnLh/Ycfok0Zqmr0DWbWf+9mkndhj3W4lsGp8lSKok3rmluxCIeLgW4qXz+9v/603r0reKLAKiMFYlb+3lyhs/xy6bppHlJiDzySokQQk9J/Jn6splHptjAB4TRyd/Apln+zfqp8qyD7Ak1smZIcuQ/3MG4Ckqdl0AWsn3gh9xXjJtlZoxMh9PTiZ6V/gjAN+iv77SMNp00b+N5x1AWige4m30BjZwwWWZekeMlvEc1BajoXFneynLijkYTRNMqz2SXhLgnU6FFx5Q2u7bpDW1mGObur0NRkZu/rJKYKmnsAQ/daAnkcVeNMsj3CWp+AmBXVi0wsjjLEByebeYVNdG9bvmB/3EiLaApv336W58N8ajbLsAPlmasEWbteogNy0fh3XowqMCHLBbh/lsyZEJIUvL2cXaQ+/nyfkwu8VRzUUMoD30qHPmiG/146tN+Xj07z408Zgv6idvtecwEcQQxQPvxlolBqa6Tg+6yxVO2EnC7EFvytpSlK8N4fAIrgRofQ90bvAPnf5svCDwia2W0ag9G6SGEC3N18kDKpZruCnX8QSDWPF0QZRBCgvsEzQaJlYg44VDRgA43x5OVwVr9JFMPIO32oNmxej11qE5y05ZU8rsw+W7ksu1MnW71YMYN3YYz+g=
   slack:
     secure: fHxjbwB3YBQXqNYMmD2jDVcAyuhc1lCMynmkcX7KA7yLPdVgtXGayZYcl+1+iHEyZaeYA7kX9LJseEjta+LNwUOxEaX8cVP1rbI5OvOi6rbnItLsdt3LZ1EobNjx7UCS0FkYp6tJN9t1UUZvBO7mcrJRMMaGH1VFaSr8/XLSHq1W/H8AB9Nf3EyTt0nWyrISzOuO0GIPZrOD9e1Gf99ZLW/H7FmOCu192u71fviNJsebb/dE5GWPbdD291Q5FojQzZVeUSMzmbapdehePqTVTEajkp9Ubv9255guejnDr+/cTyk1/tDT9bx7dJS2Skr5dOvKkv3Ai0X6x5NVNWqgUNlxbvcuntrV1dxF5Nbi0FhBn5aCNlOCh1nNRJ7URrXHzImsvgrQTNuEwEayhnBdfc31RdN+NycyBWhqJ3/L/Hhy9IH7HXAIvEdLqUaXogV+HmmHhve4NADOA4io1YwiYo5tDr/3fvChoqw7+PJJR4hTZ26e2xjNLIa3iQBYU4rszNhVFC49VodCZ0Zd9h5UG0QJTFOfQzuX4N3Ns5mXr4fp6KvJPvrQCNyc5idnQZi6KmomhePH0wqxewGqIGIfbczBgrUvNjkgzmSBY+qyy66jFxaJpfUooRpYceLmdedt4gWHS03ewX1JNQP0RiGlmPK8N17HgCB84u7C7N2QEx4=
+
+# Coverity
+addons:
+  coverity_scan:
+    project:
+      name: "tamu-vscl/cpdisplay"
+      description: "Head down display for flight simulators."
+    notification_email:
+      secure: h/qoo4trZdnbpTvVdR2ICXVA9HrFztKjaH1CN+RlPIxosawzEpu3bvJw1ZPWa8j3lEQcrZO8A/GxeF1Prkhq7Dw9ZXyx2Vu2np8gFnGnqQTJ/MOyouRq4P+5v0gR9h5nt2p82Hv2hJkqpQdF+7D1GayI6R9kiy2TqOHEPPB38SsXMj13ttY9y01Pw8P4ThFYJfB5qa25cQij2rIWc81WLuZ3PtIiGx4xXz9936dHpIUVl7hq0Cg94FTeJU2g+1qDZ+5aTmbgPoNgzNgNU7iJ20UUZ/rmJOrPNwpk92wx4+4H0NS/IOsZzmD4ohKlHZeKERPwdwZQl+2Z/GHqH0OSlOIuAERPIMXVzuVQnary3diwHkwt8/5kgSYnyadAH4p8Sj6Lg88VdCPq9bQM9h6oLDQBeWqHWJ3Q6l0V6IYgZGt3ilsPfJRpvlY4Nig0dQHOC+xWRc09Wq1NSTduZ4zwfJWO5Pbb77rDcRpWOsWJMvZQ+BMrk6snw/YzJ1gYDTmpdzaMtRxKFzrArBTaKh7yh72tDJUPK2Z1+lRrhvbACKY2ivql3U5+Frv/V1uftddkkfrD3U1pqKfiuqYQRQ8ppNgdbtcbzDc01R+ggn5JgkstetlemNMx16TyXmBcjKrWUZTPTljQeLUMJk3s+7Xj4l34RP+NotEu4JJBR99MdT8=
+    build_command_prepend: "cmake .."
+    build_command:   "make -j4"
+    branch_pattern: coverity_scan

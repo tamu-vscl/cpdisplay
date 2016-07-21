@@ -135,7 +135,13 @@ add_custom_target(release
 if(APPLE)
   set(CMAKE_PREFIX_PATH /usr/local/opt/qt5)
 elseif(UNIX)
-  set(CMAKE_PREFIX_PATH /opt/qt5/5.6/gcc_64)
+  # Set the CMAKE_PREFIX_PATH for Unix-like systems depending on whether we are
+  # doing a Travis CI build.
+  if(DEFINED ENV{TRAVISCI})
+    set(CMAKE_PREFIX_PATH /opt/qt56/lib/cmake)
+  else()
+    set(CMAKE_PREFIX_PATH /opt/qt5/5.6/gcc_64)
+  endif()
 endif()
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
