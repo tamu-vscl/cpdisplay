@@ -5,7 +5,8 @@ Cockpit Head Down Display for the Vehicle Systems & Controls Lab at Texas A&M Un
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg?style=flat-square)](./LICENSE)
 [![TravisCI Status](https://img.shields.io/travis/tamu-vscl/cpdisplay/master.svg?style=flat-square)](https://travis-ci.org/tamu-vscl/cpdisplay)
 [![Coverity Scan Status](https://img.shields.io/coverity/scan/8942.svg?style=flat-square)](https://scan.coverity.com/projects/tamu-vscl-cpdisplay)
-[![GitHub Release](https://img.shields.io/github/release/tamu-vscl/cpdisplay.svg?style=flat-square)](https://github.com/tamu-vscl/cpdisplay/releases)
+[![Issues](http://img.shields.io/github/issues/tamu-vscl/cpdisplay.svg?style=flat-square)](https://github.com/tamu-vscl/cpdisplay/issues)
+[![Release](https://img.shields.io/github/release/tamu-vscl/cpdisplay.svg?style=flat-square)](https://github.com/tamu-vscl/cpdisplay/releases)
 
 
 This display is designed to work with X-Plane 10, and provides many panels.  The display itself is reconfigurable with a series of INI files, allowing users to modify the size and arrangement of panels to suite their needs and display resolutions.
