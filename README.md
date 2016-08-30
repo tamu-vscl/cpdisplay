@@ -1,6 +1,7 @@
 CPDisplay
 =========
 Cockpit Head Down Display for the Vehicle Systems & Controls Lab at Texas A&M University.
+
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg?style=flat-square)](./LICENSE)
 [![TravisCI Status](https://img.shields.io/travis/tamu-vscl/cpdisplay/master.svg?style=flat-square)](https://travis-ci.org/tamu-vscl/cpdisplay)
 [![Coverity Scan Status](https://img.shields.io/coverity/scan/8942.svg?style=flat-square)](https://scan.coverity.com/projects/tamu-vscl-cpdisplay)
