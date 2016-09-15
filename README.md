@@ -60,7 +60,7 @@ The MCS setup instructions are also included in the [config/examples/cpd-setting
 
 ```bash
 $ git clone https://github.com/tamu-vscl/cpdisplay.git
-$ git submodule init --update
+$ git submodule update --init
 $ cp config/examples/cpd-settings.ini config/cpd-settings.ini
 ## Change settings to fit your network/system
 $ mkdir build && cd build
