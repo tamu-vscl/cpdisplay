@@ -15,9 +15,9 @@ env:
     # Set to true for CMake to use for Linux prefix stuff.
     - TRAVISCI=true
 
-# For now, build only the master branch.
+# For now, build only the TravisCI branch.
 branches:
-  - master
+  - travisci
 
 # Install Qt5.6 and gcc6
 # Based on opencor/opencor Travis config.
